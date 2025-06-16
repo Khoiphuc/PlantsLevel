@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa chỉ số cây trồng PvZ2</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Chỉnh sửa chỉ số cây trồng Plants vs. Zombies 2</h1>
+        <p>Tải lên tệp <code>PlantLevels.json</code> của bạn để chỉnh sửa.</p>
+    </div>
+
+    <div class="main-content">
+        <div class="card file-upload-card">
+            <h2>Chọn tệp</h2>
+            <label for="jsonFile" class="file-label">
+                <input type="file" id="jsonFile" accept=".json">
+                <span class="custom-file-button">Chọn tệp PlantLevels.json</span>
+                <span id="fileNameDisplay" class="file-name-display">Chưa có tệp nào được chọn</span>
+            </label>
+            <p><i>**Vui lòng chuyển sang file có đuôi PlantLevels.json của PlantLevels.rton từ game</i> - <a
+                    href="https://pvsz2.ru/convert/en">CHUYỂN TẠI ĐÂY</a></p>
+        </div>
+
+        <div class="card settings-card">
+            <h2>Cài đặt chỉnh sửa</h2>
+            <div class="setting-row">
+                <div class="setting-group">
+                    <label for="costValue">Giá cây (Cost):</label>
+                    <input type="number" id="costValue" value="1" min="0">
+                    <p class="setting-description">Đặt giá tất cả các cây.</p>
+                </div>
+                <div class="setting-group">
+                    <label for="cooldownValue">Hồi chiêu (Cooldown):</label>
+                    <input type="number" id="cooldownValue" value="0" min="0">
+                    <p class="setting-description">Đặt hồi chiêu Packet & Starting.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-row">
+            <button id="processFile">Xử lý & Tải xuống</button>
+            <button id="showLogButton" style="display: none;">Xem Nhật ký</button>
+        </div>
+
+    </div>
+
+    <div id="logModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Nhật ký Xử lý</h3>
+            <pre id="modalLogContent"></pre>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+:root {
+    --primary-color: #28a745;
+    /* Màu xanh lá cây */
+    --secondary-color: #2c3e50;
+    /* Màu xám đậm */
+    --background-color: #f4f4f4;
+    /* Nền nhạt */
+    --card-bg-color: #fff;
+    /* Nền thẻ */
+    --border-color: #d4e3f0;
+    /* Màu viền */
+    --text-color: #333;
+    --light-text-color: #666;
+    --header-bg-color: #34495e;
+    /* Nền tiêu đề */
+    --header-text-color: #ecf0f1;
+    /* Chữ tiêu đề */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Căn giữa theo chiều ngang */
+    min-height: 100vh;
+}
+
+.header {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    /* Cho phép các thẻ xuống dòng */
+    justify-content: center;
+    /* Căn giữa các thẻ */
+    width: 100%;
+    /* Sử dụng toàn bộ chiều rộng */
+    max-width: 1200px;
+    /* Giới hạn chiều rộng tối đa để không quá dài trên màn hình siêu rộng */
+    padding: 20px;
+    gap: 20px;
+    /* Khoảng cách giữa các thẻ */
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    flex-grow: 1;
+    /* Cho phép thẻ mở rộng */
+    box-sizing: border-box;
+    min-width: 300px;
+    /* Đảm bảo thẻ không quá nhỏ */
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.file-upload-card {
+    flex-basis: 100%;
+}
+
+.settings-card {
+    flex-basis: calc(100% - 20px);
+}
+
+/* Ẩn thẻ nhật ký cũ */
+#outputLog {
+    display: none;
+}
+
+
+/* File input styling */
+.file-label {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-label input[type="file"] {
+    display: none;
+    /* Ẩn input mặc định */
+}
+
+.custom-file-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.custom-file-button:hover {
+    background-color: #4a6a8a;
+}
+
+.file-name-display {
+    display: block;
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-top: 5px;
+}
+
+
+/* Styling for the horizontal layout of settings */
+.setting-row {
+    display: flex;
+    flex-wrap: wrap;
+    /* Cho phép các nhóm setting xuống dòng trên mobile */
+    gap: 20px;
+    /* Khoảng cách giữa các nhóm setting */
+    justify-content: space-around;
+    /* Căn đều các nhóm setting */
+    align-items: flex-start;
+    /* Căn trên cùng */
+}
+
+.setting-group {
+    margin-bottom: 0;
+    /* Xóa margin-bottom cũ */
+    flex: 1;
+    /* Cho phép các nhóm setting co giãn */
+    min-width: 120px;
+    /* **Giảm min-width cho các nhóm setting** */
+    max-width: 180px;
+    /* **Thêm max-width để giữ chúng ngắn hơn** */
+    padding: 10px;
+    /* **Giảm padding** */
+    background-color: #e8f0f7;
+    /* Background hơi khác cho mỗi nhóm */
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    text-align: center;
+    /* Căn giữa nội dung trong setting-group */
+}
+
+.setting-group label {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    /* **Kích thước font nhỏ hơn** */
+}
+
+.setting-group input[type="number"] {
+    width: 100%;
+    /* Chiếm toàn bộ chiều rộng của nhóm setting */
+    padding: 5px;
+    /* **Giảm padding input** */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-right: 0;
+    /* Xóa margin-right */
+    font-size: 0.9em;
+    /* **Kích thước font nhỏ hơn** */
+}
+
+.setting-description {
+    font-size: 0.75em;
+    /* **Kích thước font rất nhỏ cho mô tả** */
+    color: var(--light-text-color);
+    margin-top: 5px;
+    min-height: 2em;
+    /* Đảm bảo đủ không gian cho 2 dòng */
+    line-height: 1.2;
+}
+
+/* New styling for the action row (buttons and short inputs) */
+.action-row {
+    display: flex;
+    flex-wrap: wrap;
+    /* Cho phép các item xuống dòng trên mobile */
+    justify-content: center;
+    /* Căn giữa các item */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    width: 100%;
+    gap: 15px;
+    /* Khoảng cách giữa các nút */
+    margin-top: 20px;
+    /* Khoảng cách từ thẻ settings */
+
+}
+
+.action-row button {
+    flex-grow: 1;
+    /* Cho phép các nút co giãn */
+    flex-basis: auto;
+    /* Kích thước tự động */
+    max-width: 250px;
+    /* **Giới hạn chiều rộng tối đa cho nút** */
+    padding: 10px 15px;
+    /* **Giảm padding nút** */
+    font-size: 1em;
+    /* **Giảm kích thước font nút** */
+    margin-top: 0;
+    /* Xóa margin-top cũ */
+    border-radius: 8px;
+    border: #28a745 solid;
+}
+
+
+/* Modal (Popup) Styles */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
+}
+
+.modal-content {
+    background-color: var(--card-bg-color);
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 90%;
+    /* Responsive width */
+    max-width: 700px;
+    /* Max width for larger screens */
+    box-sizing: border-box;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+#modalLogContent {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 400px;
+    /* Fixed height for scrollable log */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+        /* Khoảng cách nhỏ hơn trên mobile */
+    }
+
+    .card {
+        flex-basis: 100%;
+        margin-bottom: 0;
+        /* Xóa margin-bottom vì đã có gap */
+    }
+
+    .header h1 {
+        font-size: 1.6em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .setting-row {
+        flex-direction: column;
+        /* Chuyển về dạng cột trên mobile */
+        gap: 15px;
+        /* Khoảng cách giữa các nhóm setting trên mobile */
+    }
+
+    .setting-group {
+        padding: 15px;
+        /* Đệm cho mobile */
+        min-width: unset;
+        /* Xóa min-width cụ thể */
+        max-width: unset;
+        /* Xóa max-width cụ thể */
+        width: 100%;
+        /* Chiếm toàn bộ chiều rộng */
+    }
+
+    .setting-group input[type="number"] {
+        width: calc(100% - 10px);
+        /* Điều chỉnh cho padding */
+    }
+
+    .action-row {
+        flex-direction: column;
+        /* Nút và input xuống dòng trên mobile */
+        gap: 10px;
+    }
+
+    .action-row button {
+        max-width: 100%;
+        /* Nút chiếm toàn bộ chiều rộng */
+    }
+
+    .modal-content {
+        width: 95%;
+        /* Chiếm nhiều không gian hơn trên mobile */
+    }
+
+    #modalLogContent {
+        max-height: 300px;
+        /* Giảm chiều cao log trên mobile */
+    }
+}
+
+/* Specific adjustments for wider screens (PC) */
+@media (min-width: 769px) {
+    .main-content {
+        justify-content: center;
+        /* Đảm bảo các thẻ luôn căn giữa */
+        padding: 20px 40px;
+        /* Thêm đệm hai bên cho màn hình lớn */
+    }
+
+    .file-upload-card {
+        flex-basis: 100%;
+    }
+
+    .settings-card {
+        /* settings-card chứa setting-row, nên nó sẽ tự co giãn */
+        flex-basis: calc(100% - 20px);
+    }
+}
