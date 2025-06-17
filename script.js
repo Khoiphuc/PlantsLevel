@@ -1,19 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Thêm dòng này để lấy button chọn file
+    const fileSelectButton = document.getElementById('fileSelectButton');
     const jsonFileInput = document.getElementById('jsonFile');
+
+    // Thêm sự kiện click cho button chọn file
+    fileSelectButton.addEventListener('click', () => {
+        jsonFileInput.click();
+    });
     const fileNameDisplay = document.getElementById('fileNameDisplay');
     const costValueInput = document.getElementById('costValue');
     const cooldownValueInput = document.getElementById('cooldownValue');
+
     const processFileButton = document.getElementById('processFile');
 
     // Elements for the modal
     const showLogButton = document.getElementById('showLogButton');
     const logModal = document.getElementById('logModal');
-    const closeButton = document.querySelector('.close-button');
-    const modalLogContent = document.getElementById('modalLogContent'); // Changed from logContent
+    const closeButton = document.querySelector('.close-button'); // Correctly querySelector
+    const modalLogContent = document.getElementById('modalLogContent');
 
-    let currentLog = ''; // Variable to store log messages
+    let currentLog = '';
 
-    // Display selected file name
     jsonFileInput.addEventListener('change', () => {
         if (jsonFileInput.files.length > 0) {
             fileNameDisplay.textContent = `Đã chọn: ${jsonFileInput.files[0].name}`;
@@ -22,11 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to append messages to the log variable
     function log(message) {
         currentLog += message + '\n';
-        // logContent.textContent += message + '\n'; // Remove direct update to hidden logContent
-        // logContent.scrollTop = logContent.scrollHeight; 
     }
 
     // Event listener for processing the file
@@ -39,9 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCost = parseInt(costValueInput.value, 10);
         const newCooldown = parseInt(cooldownValueInput.value, 10);
 
+        // GÁN CỨNG GIÁ TRỊ 0 CHO CÁC THUỘC TÍNH MỚI NÀY
+        const newUltomatoCostPerExistingPlant = 0;
+        const newTileTurnipFirstNonFreeCost = 0;
+
+
         if (!file) {
             log('Vui lòng chọn tệp PlantLevels.json trước.');
-            showLogButton.style.display = 'block'; // Show button if there's a message
+            showLogButton.style.display = 'block';
             return;
         }
         if (file.name !== 'PlantLevels.json') {
@@ -83,14 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (data && Array.isArray(data.objects)) {
                     data.objects.forEach(obj => {
+                        const plantName = obj.aliases && obj.aliases.length > 0 ? obj.aliases[0] : 'Unknown Plant';
+                        let hasPlantSpecificChanges = false; // Flag for Ultomato/PowerPlant
+
                         if (obj.objdata && Array.isArray(obj.objdata.FloatStats)) {
-                            const plantName = obj.aliases && obj.aliases.length > 0 ? obj.aliases[0] : 'Unknown Plant';
 
                             let hasPacketCooldown = false;
                             let hasStartingCooldown = false;
 
                             obj.objdata.FloatStats.forEach(stat => {
-                                // Update 'Cost'
+                                // Update 'Cost' for all plants
                                 if (stat.Name === 'Cost' && Array.isArray(stat.Values)) {
                                     const originalLength = stat.Values.length;
                                     stat.Values = Array(originalLength).fill(newCost);
@@ -98,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     modificationsMade++;
                                 }
 
-                                // Update 'PacketCooldown'
+                                // Update 'PacketCooldown' for all plants
                                 if (stat.Name === 'PacketCooldown' && Array.isArray(stat.Values)) {
                                     const originalLength = stat.Values.length;
                                     stat.Values = Array(originalLength).fill(newCooldown);
@@ -107,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     hasPacketCooldown = true;
                                 }
 
-                                // Update 'StartingCooldown'
+                                // Update 'StartingCooldown' for all plants
                                 if (stat.Name === 'StartingCooldown' && Array.isArray(stat.Values)) {
                                     const originalLength = stat.Values.length;
                                     stat.Values = Array(originalLength).fill(newCooldown);
@@ -115,15 +126,44 @@ document.addEventListener('DOMContentLoaded', () => {
                                     modificationsMade++;
                                     hasStartingCooldown = true;
                                 }
+
+                                // --- Xử lý thuộc tính đặc biệt cho Ultomato ---
+                                if (plantName === 'ultomato' && stat.Name === 'Ultomato_CostPerExistingPlant' && Array.isArray(stat.Values)) {
+                                    const originalLength = stat.Values.length;
+                                    stat.Values = Array(originalLength).fill(newUltomatoCostPerExistingPlant);
+                                    log(`  - Cập nhật Ultomato_CostPerExistingPlant cho ${plantName} thành ${newUltomatoCostPerExistingPlant}`);
+                                    modificationsMade++;
+                                    hasPlantSpecificChanges = true;
+                                }
+
+                                // --- Xử lý thuộc tính đặc biệt cho Power Plant ---
+                                if (plantName === 'powerplant' && stat.Name === 'TileTurnip_FirstNonFreeCost' && Array.isArray(stat.Values)) {
+                                    const originalLength = stat.Values.length;
+                                    stat.Values = Array(originalLength).fill(newTileTurnipFirstNonFreeCost);
+                                    log(`  - Cập nhật TileTurnip_FirstNonFreeCost cho ${plantName} thành ${newTileTurnipFirstNonFreeCost}`);
+                                    modificationsMade++;
+                                    hasPlantSpecificChanges = true;
+                                }
                             });
 
-                            if (!hasPacketCooldown || !hasStartingCooldown) {
-                                if (plantName !== "marigold" && obj.objdata.FloatStats.length > 0) {
-                                    if (!hasPacketCooldown) log(`  Lưu ý: Không tìm thấy PacketCooldown cho ${plantName}.`);
-                                    if (!hasStartingCooldown) log(`  Lưu ý: Không tìm thấy StartingCooldown cho ${plantName}.`);
-                                }
+                            // Log warnings for general cooldowns
+                            if (plantName !== "marigold" && obj.objdata.FloatStats.length > 0) { // Marigold is a special case
+                                if (!hasPacketCooldown) log(`  Lưu ý: Không tìm thấy PacketCooldown cho ${plantName}.`);
+                                if (!hasStartingCooldown) log(`  Lưu ý: Không tìm thấy StartingCooldown cho ${plantName}.`);
                             }
+                        } else if (plantName === 'marigold') {
+                            // Marigold thường không có FloatStats/cấu trúc giống các cây khác, bỏ qua log cảnh báo cho nó
+                            // log(`  Lưu ý: Cây ${plantName} có cấu trúc dữ liệu khác, không áp dụng thay đổi mặc định.`);
                         }
+
+                        // Log warnings for plant-specific properties if not found
+                        if (plantName === 'ultomato' && !hasPlantSpecificChanges) {
+                            log(`  Lưu ý: Không tìm thấy Ultomato_CostPerExistingPlant cho Ultomato.`);
+                        }
+                        if (plantName === 'powerplant' && !hasPlantSpecificChanges) {
+                            log(`  Lưu ý: Không tìm thấy TileTurnip_FirstNonFreeCost cho Power Plant.`);
+                        }
+
                     });
                 } else {
                     log('Lỗi: Cấu trúc tệp JSON không mong đợi. Không tìm thấy mảng "objects" hoặc "objdata.FloatStats".');
@@ -150,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     log('Không có thay đổi nào được thực hiện hoặc không tìm thấy thuộc tính phù hợp để chỉnh sửa. Vui lòng kiểm tra lại tệp và cài đặt.');
                 }
-                showLogButton.style.display = 'block'; // Show log button after processing
+                showLogButton.style.display = 'block';
 
             } catch (error) {
                 log(`Lỗi không xác định khi xử lý tệp: ${error.message}`);
@@ -165,23 +205,20 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onerror = () => {
             log('Lỗi khi đọc tệp. Vui lòng thử lại.');
             showLogButton.style.display = 'block';
-            // Đảm bảo modalLogContent được cập nhật với log cuối cùng
             modalLogContent.textContent = currentLog;
         };
 
         reader.readAsText(file);
     });
 
-    // Modal event listeners
     showLogButton.addEventListener('click', () => {
-        logModal.style.display = 'flex'; // Show the modal
+        logModal.style.display = 'flex'; // Use flex to center the modal
     });
 
     closeButton.addEventListener('click', () => {
-        logModal.style.display = 'none'; // Hide the modal
+        logModal.style.display = 'none';
     });
 
-    // Close the modal if user clicks outside of it
     window.addEventListener('click', (event) => {
         if (event.target === logModal) {
             logModal.style.display = 'none';
