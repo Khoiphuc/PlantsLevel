@@ -1,4 +1,3 @@
-/* Sử dụng lại style.css từ bản cập nhật trước (bố cục ngang và modal) */
 :root {
     --primary-color: #28a745;
     --secondary-color: #2c3e50;
@@ -10,9 +9,7 @@
     --header-bg-color: #34495e;
     --header-text-color: #ecf0f1;
     --hover-bg-color: #f0f8ff;
-    /* Màu nền khi hover nhẹ nhàng */
     --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    /* Đổ bóng khi hover */
 }
 
 body {
@@ -59,40 +56,83 @@ body {
     box-sizing: border-box;
 }
 
-.card {
-    background-color: var(--card-bg-color);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    flex-grow: 1;
-    box-sizing: border-box;
-    min-width: 300px;
+.top-row-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-h2 {
-    color: var(--secondary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
+.top-row-container .card {
+    flex-grow: 1;
+    flex-basis: calc(33.333% - 20px);
+    min-width: 280px;
+    padding: 15px;
 }
 
 .file-upload-card {
-    flex-basis: 100%;
+    border-radius: 12px;
 }
 
 .settings-card {
-    flex-basis: calc(100% - 20px);
+    /* Các style khác giữ nguyên */
+    gap: 1px;
 }
 
-#outputLog {
-    display: none;
+.action-button-card {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
 }
 
+.action-button-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-align: center;
+}
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.button-container button {
+    flex: 1;
+    padding: 10px 15px;
+    height: 50px;
+    background-color: white;
+    color: black;
+    border: #28a745 solid 1px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.button-container button:hover {
+    background-color: #90f5a6;
+    transform: translateY(-1px);
+}
+
+.button-container button:active {
+    transform: translateY(0);
+}
+
+/* File input styling */
 .file-label {
+    background: white;
+    height: 260px;
+    padding-top: 80px;
     display: block;
     cursor: pointer;
     text-align: center;
+    margin-top: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
 }
 
 .file-label input[type="file"] {
@@ -102,11 +142,14 @@ h2 {
 .custom-file-button {
     display: inline-block;
     padding: 10px 15px;
+    height: auto;
     background-color: var(--secondary-color);
     color: white;
-    border-radius: 8px;
+    font-size: 20px;
+    border-radius: 12px;
     transition: background-color 0.3s ease;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .custom-file-button:hover {
@@ -123,37 +166,29 @@ h2 {
 /* Style cho phần hướng dẫn có hover */
 .info-hover-card {
     background-color: #e8f0f7;
-    /* Nền nhẹ nhàng ban đầu */
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 15px;
-    margin-top: 20px;
-    /* Khoảng cách với phần input file */
+    margin-top: 10px;
     transition: all 0.3s ease;
-    /* Hiệu ứng chuyển động mượt mà */
     cursor: default;
-    /* Thay đổi con trỏ chuột */
+    box-sizing: border-box;
 }
 
 .info-hover-card:hover {
     background-color: var(--hover-bg-color);
-    /* Nền sáng hơn khi hover */
     box-shadow: var(--hover-shadow);
-    /* Đổ bóng nổi lên */
     transform: translateY(-2px);
-    /* Dịch nhẹ lên trên */
 }
 
 .info-hover-card p {
     margin: 5px 0;
-    /* Khoảng cách giữa các đoạn văn */
     font-size: 0.9em;
     color: var(--text-color);
 }
 
 .info-hover-card a {
     color: #007bff;
-    /* Màu xanh link */
     text-decoration: none;
     font-weight: bold;
 }
@@ -163,21 +198,19 @@ h2 {
     color: #0056b3;
 }
 
-
 .setting-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     justify-content: space-around;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .setting-group {
-    margin-bottom: 0;
     flex: 1;
-    min-width: 120px;
-    max-width: 180px;
+    min-width: 100px;
+    max-width: 160px;
     padding: 10px;
     background-color: #e8f0f7;
     border-radius: 5px;
@@ -188,7 +221,7 @@ h2 {
 
 .setting-group label {
     margin-bottom: 5px;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
 .setting-group input[type="number"] {
@@ -198,47 +231,18 @@ h2 {
     border-radius: 4px;
     box-sizing: border-box;
     margin-right: 0;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
 .setting-description {
-    font-size: 0.75em;
+    font-size: 0.7em;
     color: var(--light-text-color);
     margin-top: 5px;
     min-height: 2em;
     line-height: 1.2;
 }
 
-.action-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.action-row button {
-    flex-grow: 1;
-    flex-basis: auto;
-    max-width: 250px;
-    padding: 10px 15px;
-    font-size: 1em;
-    margin-top: 0;
-    border-radius: 8px;
-    border: #28a745 solid 1px;
-}
-
-button:hover {
-    /* background-color: #218838; */
-    transform: translateY(-1px);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
+/* Modal (Popup) Styles */
 .modal {
     display: none;
     position: fixed;
@@ -300,7 +304,7 @@ button:active {
     line-height: 1.4;
 }
 
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .main-content {
         padding: 15px;
@@ -308,9 +312,20 @@ button:active {
         gap: 15px;
     }
 
-    .card {
+    .top-row-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .top-row-container .card {
         flex-basis: 100%;
-        margin-bottom: 0;
+        min-width: unset;
+    }
+
+    .file-upload-card,
+    .settings-card,
+    .action-button-card {
+        padding: 15px;
     }
 
     .header h1 {
@@ -321,14 +336,17 @@ button:active {
         font-size: 1em;
     }
 
+    .file-label {
+        height: auto;
+        padding: 20px;
+    }
+
     .setting-row {
-        /* flex-direction: column; */
-        gap: 15px;
-        margin-bottom: 15px;
+        gap: 10px;
     }
 
     .setting-group {
-        padding: 15px;
+        padding: 10px;
         min-width: unset;
         max-width: unset;
         width: 100%;
@@ -338,13 +356,12 @@ button:active {
         width: calc(100% - 10px);
     }
 
-    .action-row {
+    .button-container {
         flex-direction: column;
-        gap: 10px;
     }
 
-    .action-row button {
-        max-width: 100%;
+    .button-container button {
+        width: 100%;
     }
 
     .modal-content {
@@ -357,12 +374,10 @@ button:active {
 
     .info-hover-card {
         padding: 10px;
-        /* Giảm padding trên mobile */
     }
 
     .info-hover-card p {
         font-size: 0.85em;
-        /* Giảm font chữ trên mobile */
     }
 }
 
@@ -373,10 +388,14 @@ button:active {
     }
 
     .file-upload-card {
-        flex-basis: 100%;
+        flex-basis: calc(33.333% - 20px);
     }
 
     .settings-card {
-        flex-basis: calc(100% - 20px);
+        flex-basis: calc(33.333% - 20px);
+    }
+
+    .action-button-card {
+        flex-basis: calc(33.333% - 20px);
     }
 }
