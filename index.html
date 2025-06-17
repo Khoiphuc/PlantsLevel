@@ -21,11 +21,11 @@
         <div class="top-row-container">
             <div class="card file-upload-card">
                 <h2>Chọn tệp</h2>
-                <label for="jsonFile" class="file-label">
-                    <input type="file" id="jsonFile" accept=".json">
-                    <span class="custom-file-button">Chọn file PlantLevels.json</span>
+                <div class="file-upload-wrapper">
+                    <button id="fileSelectButton" class="file-select-button">Chọn file PlantLevels.json</button>
                     <span id="fileNameDisplay" class="file-name-display">Chưa có tệp nào được chọn</span>
-                </label>
+                    <input type="file" id="jsonFile" accept=".json" style="display: none;">
+                </div>
             </div>
 
             <div class="card settings-card">
