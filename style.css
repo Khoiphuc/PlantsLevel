@@ -6,7 +6,7 @@
     --border-color: #d4e3f0;
     --text-color: #333;
     --light-text-color: #666;
-    --header-bg-color: #34495e;
+    --header-bg-color: green;
     --header-text-color: #ecf0f1;
     --hover-bg-color: #f0f8ff;
     --hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -143,7 +143,7 @@ body {
     display: inline-block;
     padding: 10px 15px;
     height: auto;
-    background-color: var(--secondary-color);
+    background-color: rgb(0, 179, 0);
     color: white;
     font-size: 20px;
     border-radius: 12px;
@@ -153,7 +153,8 @@ body {
 }
 
 .custom-file-button:hover {
-    background-color: #4a6a8a;
+    background-color: rgb(17, 129, 0);
+    transform: translateY(-1px);
 }
 
 .file-name-display {
