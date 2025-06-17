@@ -122,47 +122,39 @@ body {
     transform: translateY(0);
 }
 
-/* File input styling */
-.file-label {
-    background: white;
-    height: 260px;
-    padding-top: 80px;
-    display: block;
+.file-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.file-select-button {
+    padding: 12px 24px;
+    background-color: #d6d6d6;
+    color: black;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
     cursor: pointer;
-    text-align: center;
-    margin-top: 10px;
-    border-radius: 12px;
-    box-sizing: border-box;
-}
-
-.file-label input[type="file"] {
-    display: none;
-}
-
-.custom-file-button {
-    display: inline-block;
-    padding: 10px 15px;
-    height: auto;
-    background-color: rgb(0, 179, 0);
-    color: white;
-    font-size: 20px;
-    border-radius: 12px;
     transition: background-color 0.3s ease;
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: 15px;
+    border: #6f6f6f solid 1px;
+
 }
 
-.custom-file-button:hover {
-    background-color: rgb(17, 129, 0);
+.file-select-button:hover {
+    background-color: #979797;
     transform: translateY(-1px);
+    /* border: #28a745 solid 1px; */
 }
 
 .file-name-display {
-    display: block;
-    font-size: 0.9em;
-    color: var(--light-text-color);
-    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
 }
+
 
 /* Style cho phần hướng dẫn có hover */
 .info-hover-card {
@@ -213,7 +205,7 @@ body {
     min-width: 100px;
     max-width: 160px;
     padding: 10px;
-    background-color: #e8f0f7;
+    background-color: #f0f9f1;
     border-radius: 5px;
     border: 1px solid var(--border-color);
     box-sizing: border-box;
@@ -323,10 +315,8 @@ body {
         min-width: unset;
     }
 
-    .file-upload-card,
-    .settings-card,
-    .action-button-card {
-        padding: 15px;
+    .file-upload-wrapper {
+        width: 70%;
     }
 
     .header h1 {
