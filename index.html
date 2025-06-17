@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chỉnh sửa chỉ số cây trồng PvZ2</title>
+    <title>Chỉnh sửa PlantsLevel - PvZ2</title>
     <link rel="icon"
         href="https://img.utdstc.com/icon/889/533/8895331dfa5d196b0447dae5849a66c663080e5931a36e3909586fae09d5d238:200"
         type="image/x-icon">
@@ -13,57 +13,62 @@
 
 <body>
     <div class="header">
-        <h1>Chỉnh sửa file Plants vs. Zombies 2</h1>
+        <h1>Chỉnh sửa cây trồng Plants vs. Zombies 2</h1>
         <p>Tải lên tệp <code>PlantLevels.json</code> của bạn để chỉnh sửa.</p>
     </div>
 
     <div class="main-content">
-        <div class="card file-upload-card">
-            <h2>Chọn tệp</h2>
-            <label for="jsonFile" class="file-label">
-                <input type="file" id="jsonFile" accept=".json">
-                <span class="custom-file-button">Chọn tệp PlantLevels.json</span>
-                <span id="fileNameDisplay" class="file-name-display">Chưa có tệp nào được chọn</span>
-            </label>
+        <div class="top-row-container">
+            <div class="card file-upload-card">
+                <h2>Chọn tệp</h2>
+                <label for="jsonFile" class="file-label">
+                    <input type="file" id="jsonFile" accept=".json">
+                    <span class="custom-file-button">Chọn file PlantLevels.json</span>
+                    <span id="fileNameDisplay" class="file-name-display">Chưa có tệp nào được chọn</span>
+                </label>
+            </div>
+
+            <div class="card settings-card">
+                <h2>Cài đặt chỉnh sửa</h2>
+                <div class="setting-row">
+                    <div class="setting-group">
+                        <label for="costValue">Số mặt trời (Cost):</label>
+                        <input type="number" id="costValue" value="1" min="0">
+                        <p class="setting-description">Đặt giá tất cả các cây tại giá trị này.</p>
+                    </div>
+                    <div class="setting-group">
+                        <label for="cooldownValue">Hồi chiêu (Cooldown):</label>
+                        <input type="number" id="cooldownValue" value="0" min="0">
+                        <p class="setting-description">Đặt Packet & Starting Cooldown.</p>
+                    </div>
+                </div>
+                <div class="card action-button-card">
+                    <h2>Chỉnh sửa</h2>
+                    <div class="button-container">
+                        <button id="processFile">Xử lý & Tải xuống</button>
+                        <button id="showLogButton">Xem nhật kí xử lí</button>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="info-hover-card">
                 <p><i>**Vui lòng chuyển PlantLevels.rton từ game sang file có đuôi PlantLevels.json </i> - <a
-                        href="https://pvsz2.ru/convert/en" target="_blank">CHUYỂN TẠI ĐÂY</a> - rồi chuyển ngược lại
-                    file PlantLevels.rton
-                    để duyệt vô game </p>
-                <p>Để có pp.dat hack cơ bản <a href="https://pvsz2.ru/editor" target="_blank">TẠI ĐÂY</a> hoặc lấy trên
-                    các nguồn trên mạng</p>
+                        href="https://pvsz2.ru/convert/en" target="_blank">CHUYỂN TẠI ĐÂY</a> - rồi chuyển
+                    ngược lại file PlantLevels.rton để duyệt vô game </p>
+                <p>Để có pp.dat hack cơ bản <a href="https://pvsz2.ru/editor" target="_blank">TẠI ĐÂY</a> hoặc lấy
+                    trên các nguồn trên mạng
+                </p>
             </div>
         </div>
 
-        <div class="card settings-card">
-            <h2>Cài đặt chỉnh sửa</h2>
-            <div class="setting-row">
-                <div class="setting-group">
-                    <label for="costValue">Số lượng mặt trời (Cost):</label>
-                    <input type="number" id="costValue" value="1" min="0">
-                    <p class="setting-description">Đặt giá tất cả các cây tại giá trị này.</p>
-                </div>
-                <div class="setting-group">
-                    <label for="cooldownValue">Làm mới (s)(Cooldown):</label>
-                    <input type="number" id="cooldownValue" value="0" min="0">
-                    <p class="setting-description">Đặt Packet & Starting Cooldown .</p>
-                </div>
+        <div id="logModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Nhật ký Xử lý</h3>
+                <pre id="modalLogContent"></pre>
             </div>
-        </div>
-
-        <div class="action-row">
-            <button id="processFile">Xử lý & Tải xuống</button>
-            <button id="showLogButton" style="display: none;">Xem Nhật ký</button>
-        </div>
-
-    </div>
-
-    <div id="logModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3>Nhật ký Xử lý</h3>
-            <pre id="modalLogContent"></pre>
         </div>
     </div>
 
