@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh sửa chỉ số cây trồng PvZ2</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="header">
-        <h1>Chỉnh sửa chỉ số cây trồng Plants vs. Zombies 2</h1>
+        <h1>Chỉnh sửa file Plants vs. Zombies 2</h1>
         <p>Tải lên tệp <code>PlantLevels.json</code> của bạn để chỉnh sửa.</p>
     </div>
 
@@ -22,26 +22,29 @@
                 <span class="custom-file-button">Chọn tệp PlantLevels.json</span>
                 <span id="fileNameDisplay" class="file-name-display">Chưa có tệp nào được chọn</span>
             </label>
-            <p><i>**Vui lòng chuyển PlantLevels.rton từ game sang file có đuôi PlantLevels.json </i> - <a
-                    href="https://pvsz2.ru/convert/en">CHUYỂN TẠI ĐÂY</a> - rồi chuyển ngược lại file PlantLevels.rton
-                để duyệt vô
-                game </p>
-            <p>Để có pp.dat hack cơ bản <a href="https://pvsz2.ru/editor">TẠI ĐÂY</a> hoặc lấy trên các nguồn trên mạng
-            </p>
+
+            <div class="info-hover-card">
+                <p><i>**Vui lòng chuyển PlantLevels.rton từ game sang file có đuôi PlantLevels.json </i> - <a
+                        href="https://pvsz2.ru/convert/en" target="_blank">CHUYỂN TẠI ĐÂY</a> - rồi chuyển ngược lại
+                    file PlantLevels.rton
+                    để duyệt vô game </p>
+                <p>Để có pp.dat hack cơ bản <a href="https://pvsz2.ru/editor" target="_blank">TẠI ĐÂY</a> hoặc lấy trên
+                    các nguồn trên mạng</p>
+            </div>
         </div>
 
         <div class="card settings-card">
             <h2>Cài đặt chỉnh sửa</h2>
             <div class="setting-row">
                 <div class="setting-group">
-                    <label for="costValue">Giá cây (Cost):</label>
+                    <label for="costValue">Số lượng mặt trời (Cost):</label>
                     <input type="number" id="costValue" value="1" min="0">
-                    <p class="setting-description">Đặt giá tất cả các cây.</p>
+                    <p class="setting-description">Đặt giá tất cả các cây tại giá trị này.</p>
                 </div>
                 <div class="setting-group">
-                    <label for="cooldownValue">Hồi chiêu (Cooldown):</label>
+                    <label for="cooldownValue">Làm mới (s)(Cooldown):</label>
                     <input type="number" id="cooldownValue" value="0" min="0">
-                    <p class="setting-description">Đặt hồi chiêu Packet & Starting.</p>
+                    <p class="setting-description">Đặt Packet & Starting Cooldown .</p>
                 </div>
             </div>
         </div>
@@ -61,7 +64,7 @@
         </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
