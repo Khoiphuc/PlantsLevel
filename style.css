@@ -125,7 +125,9 @@ body {
 .file-upload-wrapper {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    align-items: center;
+    border-radius: 8px;
+    justify-content: center;
 }
 
 .file-select-button {
@@ -315,9 +317,9 @@ body {
         min-width: unset;
     }
 
-    .file-upload-wrapper {
+    /* .file-upload-wrapper {
         width: 70%;
-    }
+    } */
 
     .header h1 {
         font-size: 1.6em;
