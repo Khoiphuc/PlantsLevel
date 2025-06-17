@@ -78,7 +78,7 @@ body {
 
 .settings-card {
     /* Các style khác giữ nguyên */
-    gap: 1px;
+    margin-top: 1px;
 }
 
 .action-button-card {
@@ -329,9 +329,9 @@ body {
         font-size: 1em;
     }
 
-    .file-label {
-        height: auto;
-        padding: 20px;
+    .settings-card {
+        /* Các style khác giữ nguyên */
+        margin-top: 1px;
     }
 
     .setting-row {
